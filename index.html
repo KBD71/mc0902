@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9월 2일 맥체인 성경읽기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Serif+KR:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            font-family: 'Noto Serif KR', serif;
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2.2em;
+            margin-bottom: 5px;
+        }
+
+        h1 .subtitle {
+            display: block;
+            font-size: 0.6em;
+            color: #7f8c8d;
+            font-weight: 400;
+            margin-top: 10px;
+        }
+
+        .intro-passage {
+            text-align: center;
+            font-size: 1.1em;
+            color: #34495e;
+            margin-bottom: 40px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+
+        .chapter-card {
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid;
+            background-color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .card-book1 { border-left-color: #4285F4; }
+        .card-book2 { border-left-color: #DB4437; }
+        .card-book3 { border-left-color: #F4B400; }
+        .card-book4 { border-left-color: #0F9D58; }
+        .integration-card { border-left-color: #808080; }
+
+        h2 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.8em;
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        h3 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #ecf0f1;
+            color: #34495e;
+        }
+
+        .bible-text p {
+            margin: 0 0 10px 0;
+            font-size: 1.05em;
+        }
+
+        .verse-number {
+            font-weight: bold;
+            color: #7f8c8d;
+            margin-right: 8px;
+            font-size: 0.9em;
+        }
+
+        .bible-text strong {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: 700;
+        }
+
+        .card-book1 .bible-text strong { color: #4285F4; }
+        .card-book2 .bible-text strong { color: #DB4437; }
+        .card-book3 .bible-text strong { color: #F4B400; }
+        .card-book4 .bible-text strong { color: #0F9D58; }
+        
+        .analysis-svg {
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .commentary-box {
+            background-color: #f8f9f9;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #bdc3c7;
+        }
+        
+        .commentary-box strong {
+            font-family: 'Noto Serif KR', serif;
+            color: #2c3e50;
+        }
+        
+        .commentary-box .key-verse {
+            color: #c0392b; /* 핵심 구절 텍스트 색상 */
+            font-weight: 500;
+        }
+
+        .commentary-box .key-verse strong {
+            color: #2c3e50; /* 구절 참조(예: 창1:1) 색상은 원래대로 유지 */
+        }
+
+        .analysis-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .analysis-table th, .analysis-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .analysis-table th {
+            background-color: #f2f2f2;
+            font-weight: 700;
+        }
+
+        .floating-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        #playPauseBtn {
+            width: 60px;
+            height: 60px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        #playPauseBtn:hover {
+            background-color: #34495e;
+            transform: scale(1.1);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #95a5a6;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>9월 2일 맥체인 성경읽기<br><span class="subtitle">하나님의 주권적 심판과 구원의 소망</span></h1>
+        <p class="intro-passage">삼상26 | 고전7 | 겔5 | 시42,43</p>
+
+        <!-- 사무엘상 26장 -->
+        <div class="chapter-card card-book1">
+            <h2>사무엘상 26장</h2>
+            <h3>개요 (Overview)</h3>
+            <p>다윗이 다시 한번 사울 왕을 죽일 기회를 얻지만, 하나님께서 기름 부으신 자를 해하지 않고 그의 생명을 존중합니다. 이 사건은 다윗의 신실함과 하나님의 주권에 대한 깊은 신뢰를 보여주며, 사울의 비참한 영적 상태와 대조를 이룹니다.</p>
+            
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <svg class="analysis-svg" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="10" width="380" height="200" fill="#E3F2FD" rx="10"/>
+                <text x="200" y="35" font-family="Noto Serif KR" font-size="16" text-anchor="middle" font-weight="bold" fill="#1565C0">다윗의 두 번째 기회와 신실함</text>
+                
+                <!-- 다윗의 행동 -->
+                <rect x="30" y="60" width="160" height="100" fill="#BBDEFB" rx="5"/>
+                <text x="110" y="80" font-family="Noto Sans KR" font-size="14" text-anchor="middle" font-weight="bold" fill="#0D47A1">다윗의 선택</text>
+                <text x="110" y="105" font-family="Noto Sans KR" font-size="12" text-anchor="middle">하나님의 주권 존중</text>
+                <text x="110" y="125" font-family="Noto Sans KR" font-size="12" text-anchor="middle">(기름 부음 받은 자)</text>
+                <text x="110" y="145" font-family="Noto Sans KR" font-size="12" text-anchor="middle">생명 존중</text>
+
+                <!-- 사울의 반응 -->
+                <rect x="210" y="60" width="160" height="100" fill="#FFCDD2" rx="5"/>
+                <text x="290" y="80" font-family="Noto Sans KR" font-size="14" text-anchor="middle" font-weight="bold" fill="#B71C1C">사울의 상태</text>
+                <text x="290" y="105" font-family="Noto Sans KR" font-size="12" text-anchor="middle">일시적 후회</text>
+                <text x="290" y="125" font-family="Noto Sans KR" font-size="12" text-anchor="middle">영적 무감각</text>
+                <text x="290" y="145" font-family="Noto Sans KR" font-size="12" text-anchor="middle">하나님과 단절</text>
+
+                <!-- 화살표 -->
+                <path d="M 190 110 L 210 110" stroke="#333" stroke-width="2" fill="none"/>
+                <path d="M 205 105 L 210 110 L 205 115" stroke="#333" stroke-width="2" fill="none"/>
+                <text x="200" y="100" font-family="Noto Sans KR" font-size="10" text-anchor="middle">대조</text>
+
+                <text x="200" y="190" font-family="Noto Sans KR" font-size="12" text-anchor="middle" fill="#333">결과: 다윗의 의로움과 사울의 몰락이 더욱 분명해짐</text>
+            </svg>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>십 광야에서 다시 사울을 마주한 이 사건은 엔게디 동굴 사건(삼상 24장)과 유사하지만 중요한 차이가 있습니다. 다윗은 이제 더 적극적으로 사울의 진영 깊숙이 들어가, 그의 불경함과 대조되는 자신의 신실함을 입증합니다. 개혁신학적 관점에서 이는 인간의 악한 계획에도 불구하고 하나님의 구속 계획이 신실한 자를 통해 어떻게 성취되는지를 보여줍니다. 다윗의 행동은 개인적인 복수가 아닌, 하나님의 시간과 방법을 기다리는 언약적 순종의 모범입니다. 이는 장차 자신을 십자가에 내어주실 그리스도의 모습을 예표합니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <div class="commentary-box">
+                <p class="key-verse"><strong>사무엘상 26:9-11</strong> "다윗이 아비새에게 이르되 죽이지 말라 누구든지 손을 들어 여호와의 기름 부음 받은 자를 치면 죄가 없겠느냐 하고 다윗이 또 이르되 여호와께서 살아 계심을 두고 맹세하노니 여호와께서 그를 치시리니 혹은 죽을 날이 이르거나 또는 전장에 나가서 망하리라 내가 손을 들어 여호와의 기름 부음 받은 자를 치는 것을 여호와께서 금하시나니 너는 그의 머리 곁에 있는 창과 물병만 가지고 가자 하고"</p>
+                <p>다윗은 사울을 죽이는 것이 인간적으로는 정당방위일 수 있으나, 신적으로는 하나님의 주권에 대한 침해임을 분명히 인지합니다. '여호와의 기름 부음 받은 자'라는 표현은 사울의 직분이 하나님으로부터 왔음을 인정하는 것입니다. 다윗은 복수를 하나님께 온전히 맡깁니다. 심판의 주체는 자신이 아니라 여호와이심을 고백하며, 하나님의 때와 방법을 신뢰하는 성숙한 믿음을 보여줍니다. 이는 성도가 악을 악으로 갚지 말고 오직 선으로 악을 이겨야 한다는 신약의 가르침과 일맥상통합니다.</p>
+            </div>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>십 사람들의 밀고와 다윗의 결단</strong>
+                <p><span class="verse-number">1</span>십 사람들이 기브아에 와서 사울에게 말하여 이르되 다윗이 광야 앞 하길라 산에 숨지 아니하였나이까 하니</p>
+                <p><span class="verse-number">2</span>사울이 일어나 이스라엘에서 택한 사람 삼천 명과 함께 십 광야로 내려가서 거기서 다윗을 찾으려 할새</p>
+                <p><span class="verse-number">3</span>사울이 광야 앞 하길라 산 길 가에 진 치니라 다윗이 광야에 있더니 사울이 자기를 따라 광야로 들어옴을 알고</p>
+                <p><span class="verse-number">4</span>이에 다윗이 정탐꾼을 보내어 사울이 과연 이른 줄 알고</p>
+                <p><span class="verse-number">5</span>다윗이 일어나 사울이 진 친 곳에 이르러 사울과 넬의 아들 군사령관 아브넬이 머무는 곳을 본즉 사울이 진영 가운데에 누웠고 백성은 그를 둘러 진 쳤더라</p>
+                <p><span class="verse-number">6</span>이에 다윗이 헷 사람 아히멜렉과 스루야의 아들 요압의 아우 아비새에게 물어 이르되 누가 나와 더불어 진영에 내려가서 사울에게 이르겠느냐 하니 아비새가 이르되 내가 함께 가겠나이다</p>
+                <p><span class="verse-number">7</span>다윗과 아비새가 밤에 그 백성에게 나아가 본즉 사울이 진영 가운데 누워 자고 창은 머리 곁 땅에 꽂혀 있고 아브넬과 백성들은 그를 둘러 누웠는지라</p>
+                
+                <strong>하나님의 주권을 신뢰하는 다윗</strong>
+                <p><span class="verse-number">8</span>아비새가 다윗에게 이르되 하나님이 오늘 당신의 원수를 당신의 손에 넘기셨나이다 그러므로 청하오니 내가 창으로 그를 찔러서 단번에 땅에 꽂게 하소서 내가 그를 두 번 찌를 것이 없으리이다 하니</p>
+                <p><span class="verse-number">9</span>다윗이 아비새에게 이르되 죽이지 말라 누구든지 손을 들어 여호와의 기름 부음 받은 자를 치면 죄가 없겠느냐 하고</p>
+                <p><span class="verse-number">10</span>다윗이 또 이르되 여호와께서 살아 계심을 두고 맹세하노니 여호와께서 그를 치시리니 혹은 죽을 날이 이르거나 또는 전장에 나가서 망하리라</p>
+                <p><span class="verse-number">11</span>내가 손을 들어 여호와의 기름 부음 받은 자를 치는 것을 여호와께서 금하시나니 너는 그의 머리 곁에 있는 창과 물병만 가지고 가자 하고</p>
+                <p><span class="verse-number">12</span>다윗이 사울의 머리 곁에서 창과 물병을 가지고 떠나가되 아무도 보거나 눈치 채지 못하고 깨어 있는 사람도 없었으니 이는 여호와께서 그들을 깊이 잠들게 하셨으므로 그들이 다 잠들어 있었기 때문이었더라</p>
+                
+                <strong>사울을 책망하는 다윗</strong>
+                <p><span class="verse-number">13</span>이에 다윗이 건너편으로 가서 멀리 산 꼭대기에 서니 거리가 멀더라</p>
+                <p><span class="verse-number">14</span>다윗이 백성과 넬의 아들 아브넬을 대하여 외쳐 이르되 아브넬아 너는 대답하지 아니하느냐 하니 아브넬이 대답하여 이르되 왕을 부르는 너는 누구냐 하더라</p>
+                <p><span class="verse-number">15</span>다윗이 아브넬에게 이르되 네가 용사가 아니냐 이스라엘 가운데에 너 같은 자가 누구냐 그러한데 네가 어찌하여 네 주 왕을 보호하지 아니하느냐 백성 가운데 한 사람이 네 주 왕을 죽이려고 들어갔었느니라</p>
+                <p><span class="verse-number">16</span>네가 행한 이 일이 옳지 못하도다 여호와께서 살아 계심을 두고 맹세하노니 여호와의 기름 부음 받은 너희 주를 보호하지 아니하였으니 너희는 마땅히 죽을 자이니라 이제 왕의 창과 왕의 머리 곁에 있던 물병이 어디 있나 보라 하니</p>
+                
+                <strong>사울의 일시적인 후회</strong>
+                <p><span class="verse-number">17</span>사울이 다윗의 음성을 알아듣고 이르되 내 아들 다윗아 이것이 네 음성이냐 하는지라 다윗이 이르되 내 주 왕이여 내 음성이니이다 하고</p>
+                <p><span class="verse-number">18</span>또 이르되 내 주는 어찌하여 주의 종을 쫓으시나이까 내가 무엇을 하였으며 내 손에 무슨 악이 있나이까</p>
+                <p><span class="verse-number">19</span>원하건대 내 주 왕은 이제 종의 말을 들으소서 만일 왕을 충동시켜 나를 해하려 하는 이가 여호와시면 여호와께서는 제물을 받으시기를 원하나이다마는 만일 사람들이면 그들이 여호와 앞에 저주를 받으리니 이는 그들이 이르기를 너는 가서 다른 신들을 섬기라 하고 오늘 나를 쫓아내어 여호와의 기업에 참여하지 못하게 함이니이다</p>
+                <p><span class="verse-number">20</span>그런즉 청하건대 여호와 앞에서 먼 이 곳에서 이제 나의 피를 땅에 흘리지 마옵소서 이는 산에서 메추라기를 사냥하는 자와 같이 이스라엘 왕이 한 벼룩을 수색하러 나오셨음이니이다</p>
+                <p><span class="verse-number">21</span>사울이 이르되 내가 범죄하였도다 내 아들 다윗아 돌아오라 네가 오늘 내 생명을 귀하게 여겼은즉 내가 다시는 너를 해하려 하지 아니하리라 내가 어리석은 일을 하였으니 대단히 잘못되었도다 하는지라</p>
+                <p><span class="verse-number">22</span>다윗이 대답하여 이르되 왕은 창을 보소서 한 소년을 보내어 가져가게 하소서</p>
+                <p><span class="verse-number">23</span>여호와께서 각 사람에게 그의 공의와 신실을 따라 갚으시리니 이는 여호와께서 오늘 왕을 내 손에 넘기셨으되 나는 손을 들어 여호와의 기름 부음 받은 자를 치기를 원하지 아니하였음이니이다</p>
+                <p><span class="verse-number">24</span>오늘 왕의 생명을 내가 중히 여긴 것 같이 내 생명을 여호와께서 중히 여기셔서 모든 환난에서 나를 구하여 내시기를 바라나이다 하니라</p>
+                <p><span class="verse-number">25</span>사울이 다윗에게 이르되 내 아들 다윗아 네게 복이 있을지로다 네가 큰 일을 행하겠고 반드시 승리를 얻으리라 하니라 다윗은 자기 길로 가고 사울은 자기 곳으로 돌아가니라</p>
+            </div>
+        </div>
+
+        <!-- 고린도전서 7장 -->
+        <div class="chapter-card card-book2">
+            <h2>고린도전서 7장</h2>
+            <h3>개요 (Overview)</h3>
+            <p>바울은 고린도 교인들이 질문한 결혼, 독신, 이혼, 재혼 등 실제적인 문제에 대해 답합니다. 그는 각자의 부르심을 받은 상태에서 주를 섬기는 것의 중요성을 강조하며, 모든 삶의 정황 속에서 하나님의 영광을 최우선으로 삼으라는 원리를 제시합니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <svg class="analysis-svg" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="10" width="380" height="200" fill="#FFEBEE" rx="10"/>
+                <text x="200" y="35" font-family="Noto Serif KR" font-size="16" text-anchor="middle" font-weight="bold" fill="#C62828">부르심의 자리에서 주를 섬기라</text>
+
+                <circle cx="80" cy="100" r="40" fill="#FFCDD2"/>
+                <text x="80" y="105" font-family="Noto Sans KR" font-size="14" text-anchor="middle" font-weight="bold" fill="#B71C1C">결혼</text>
+                
+                <circle cx="200" cy="100" r="40" fill="#FFCDD2"/>
+                <text x="200" y="105" font-family="Noto Sans KR" font-size="14" text-anchor="middle" font-weight="bold" fill="#B71C1C">독신</text>
+
+                <circle cx="320" cy="100" r="40" fill="#FFCDD2"/>
+                <text x="320" y="105" font-family="Noto Sans KR" font-size="14" text-anchor="middle" font-weight="bold" fill="#B71C1C">기타 상황</text>
+                <text x="320" y="120" font-family="Noto Sans KR" font-size="10" text-anchor="middle" fill="#B71C1C">(이혼, 재혼 등)</text>
+
+                <path d="M 80 140 Q 200 180 320 140" stroke="#C62828" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
+                <polygon points="200,165 195,155 205,155" fill="#C62828"/>
+                <text x="200" y="195" font-family="Noto Sans KR" font-size="12" text-anchor="middle" fill="#333" font-weight="bold">핵심 원리: "각 사람은 부르심을 받은 그 부르심 그대로 지내라" (20절)</text>
+            </svg>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>고린도 교회 내에는 금욕주의적 경향으로 인해 결혼 관계를 부정적으로 보거나, 반대로 성적 방종에 빠지는 극단적인 모습이 공존했습니다. 바울은 이 문제에 대해 창조 질서로서의 결혼의 선함과, 종말론적 긴장 속에서 주께 더 집중하기 위한 독신의 은사를 모두 인정합니다. 개혁신학은 결혼과 독신을 우열의 관계로 보지 않고, 하나님께서 각자에게 주신 '소명(Vocation)'의 한 형태로 이해합니다. 중요한 것은 현재의 신분이나 상태가 아니라, 그 자리에서 어떻게 하나님 나라를 위해 헌신하는가입니다. '부르심을 받은 그대로 지내라'는 명령은 사회적 신분 상승을 금하는 것이 아니라, 외적 조건의 변화보다 내적 헌신의 태도가 본질임을 강조하는 것입니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <div class="commentary-box">
+                <p class="key-verse"><strong>고린도전서 7:17, 24</strong> "오직 주께서 각 사람에게 나눠 주신 대로 하나님이 각 사람을 부르신 그대로 행하라 내가 모든 교회에서 이와 같이 명하노라... 형제들아 너희는 각각 부르심을 받은 그대로 하나님과 함께 거하라"</p>
+                <p>이 구절은 7장 전체의 핵심 원리를 제시합니다. '부르심'은 구원의 부르심뿐만 아니라, 하나님께서 각 성도에게 허락하신 삶의 정황(결혼, 독신, 직업, 신분 등)을 모두 포함합니다. 바울은 외적인 상태의 변화를 추구하기보다, 현재 있는 그 자리에서 하나님과의 동행을 최우선으로 삼으라고 권면합니다. 이는 모든 직업이 거룩한 소명이 될 수 있다는 '직업 소명설'의 기초가 됩니다. 우리의 가치는 세상적인 지위에 있는 것이 아니라, 어떤 상황에서든 '하나님과 함께 거하는' 것에 있습니다. 이는 성도의 삶 전체가 예배가 되어야 함을 의미합니다.</p>
+            </div>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>결혼에 대한 교훈</strong>
+                <p><span class="verse-number">1</span>너희가 쓴 문제에 대하여 말하면 남자가 여자를 가까이 아니함이 좋으나</p>
+                <p><span class="verse-number">2</span>음행을 피하기 위하여 남자마다 자기 아내를 두고 여자마다 자기 남편을 두라</p>
+                <p><span class="verse-number">3</span>남편은 그 아내에게 대한 의무를 다하고 아내도 그 남편에게 그렇게 할지라</p>
+                <p><span class="verse-number">4</span>아내는 자기 몸을 주장하지 못하고 오직 그 남편이 하며 남편도 그와 같이 자기 몸을 주장하지 못하고 오직 그 아내가 하나니</p>
+                <p><span class="verse-number">5</span>서로 분방하지 말라 다만 기도할 틈을 얻기 위하여 합의상 얼마 동안은 하되 다시 합하라 이는 너희가 절제 못함으로 말미암아 사탄이 너희를 시험하지 못하게 하려 함이라</p>
+                <p><span class="verse-number">6</span>그러나 내가 이 말을 함은 허락이요 명령은 아니니라</p>
+                <p><span class="verse-number">7</span>나는 모든 사람이 나와 같기를 원하노라 그러나 각각 하나님께 받은 자기의 은사가 있으니 이 사람은 이러하고 저 사람은 저러하니라</p>
+                <p><span class="verse-number">8</span>내가 결혼하지 아니한 자들과 과부들에게 이르노니 나와 같이 그냥 지내는 것이 좋으니라</p>
+                <p><span class="verse-number">9</span>만일 절제할 수 없거든 결혼하라 정욕이 불 같이 타는 것보다 결혼하는 것이 나으니라</p>
+
+                <strong>이혼에 대한 교훈</strong>
+                <p><span class="verse-number">10</span>결혼한 자들에게 내가 명하노니 (명하는 자는 내가 아니요 주시라) 여자는 남편에게서 갈라서지 말고</p>
+                <p><span class="verse-number">11</span>(만일 갈라섰으면 그대로 지내든지 다시 그 남편과 화합하든지 하라) 남편도 아내를 버리지 말라</p>
+                <p><span class="verse-number">12</span>그 나머지 사람들에게 내가 말하노니 (이는 주의 명령이 아니라) 만일 어떤 형제에게 믿지 아니하는 아내가 있어 남편과 함께 살기를 좋아하거든 그를 버리지 말며</p>
+                <p><span class="verse-number">13</span>어떤 여자에게 믿지 아니하는 남편이 있어 아내와 함께 살기를 좋아하거든 그 남편을 버리지 말라</p>
+                <p><span class="verse-number">14</span>믿지 아니하는 남편이 아내로 말미암아 거룩하게 되고 믿지 아니하는 아내가 남편으로 말미암아 거룩하게 되나니 그렇지 아니하면 너희 자녀도 깨끗하지 못하니라 그러나 이제 거룩하니라</p>
+                <p><span class="verse-number">15</span>혹 믿지 아니하는 자가 갈리거든 갈리게 하라 형제나 자매나 이런 일에 구애될 것이 없느니라 그러나 하나님은 화평 중에서 너희를 부르셨느니라</p>
+                <p><span class="verse-number">16</span>아내 된 자여 네가 남편을 구원할는지 어찌 알 수 있으며 남편 된 자여 네가 네 아내를 구원할는지 어찌 알 수 있으리요</p>
+
+                <strong>부르심을 받은 그대로 행하라</strong>
+                <p><span class="verse-number">17</span>오직 주께서 각 사람에게 나눠 주신 대로 하나님이 각 사람을 부르신 그대로 행하라 내가 모든 교회에서 이와 같이 명하노라</p>
+                <p><span class="verse-number">18</span>할례자로서 부르심을 받은 자가 있느냐 무할례자가 되지 말며 무할례자로 부르심을 받은 자가 있느냐 할례를 받지 말라</p>
+                <p><span class="verse-number">19</span>할례 받는 것도 아무 것도 아니요 할례 받지 아니하는 것도 아무 것도 아니로되 오직 하나님의 계명을 지킬 따름이니라</p>
+                <p><span class="verse-number">20</span>각 사람은 부르심을 받은 그 부르심 그대로 지내라</p>
+                <p><span class="verse-number">21</span>네가 종으로 있을 때에 부르심을 받았느냐 염려하지 말라 그러나 네가 자유롭게 될 수 있거든 그것을 이용하라</p>
+                <p><span class="verse-number">22</span>주 안에서 부르심을 받은 자는 종이라도 주께 속한 자유인이요 또 그와 같이 자유인으로 있을 때에 부르심을 받은 자는 그리스도의 종이니라</p>
+                <p><span class="verse-number">23</span>너희는 값으로 사신 것이니 사람들의 종이 되지 말라</p>
+                <p><span class="verse-number">24</span>형제들아 너희는 각각 부르심을 받은 그대로 하나님과 함께 거하라</p>
+
+                <strong>결혼과 독신에 대한 추가 교훈</strong>
+                <p><span class="verse-number">25</span>처녀에 대하여는 내가 주께 받은 계명이 없으되 주의 자비하심을 받아서 충성스러운 자가 된 내가 의견을 말하노니</p>
+                <p><span class="verse-number">26</span>내 생각에는 이것이 좋으니 곧 임박한 환난으로 말미암아 사람이 그냥 지내는 것이 좋으니라</p>
+                <p><span class="verse-number">27</span>네가 아내에게 매였느냐 놓이기를 구하지 말며 아내에게서 놓였느냐 아내를 구하지 말라</p>
+                <p><span class="verse-number">28</span>그러나 장가 가도 죄 짓는 것이 아니요 처녀가 시집 가도 죄 짓는 것이 아니로되 이런 이들은 육신에 고난이 있으리니 나는 너희를 아끼노라</p>
+                <p><span class="verse-number">29</span>형제들아 내가 이 말을 하노니 그 때가 단축하여진 고로 이 후부터 아내 있는 자들은 없는 자 같이 하며</p>
+                <p><span class="verse-number">30</span>우는 자들은 울지 않는 자 같이 하며 기쁜 자들은 기쁘지 않은 자 같이 하며 매매하는 자들은 없는 자 같이 하며</p>
+                <p><span class="verse-number">31</span>세상 물건을 쓰는 자들은 다 쓰지 못하는 자 같이 하라 이 세상의 외형은 지나감이니라</p>
+                <p><span class="verse-number">32</span>너희가 염려 없기를 원하노라 장가 가지 않은 자는 주의 일을 염려하여 어찌하여야 주를 기쁘시게 할까 하되</p>
+                <p><span class="verse-number">33</span>장가 간 자는 세상 일을 염려하여 어찌하여야 아내를 기쁘시게 할까 하여</p>
+                <p><span class="verse-number">34</span>마음이 갈라지며 시집 가지 않은 자와 처녀는 주의 일을 염려하여 몸과 영을 다 거룩하게 하려 하되 시집 간 자는 세상 일을 염려하여 어찌하여야 남편을 기쁘시게 할까 하느니라</p>
+                <p><span class="verse-number">35</span>내가 이것을 말함은 너희의 유익을 위함이요 너희에게 올무를 놓으려 함이 아니니 오직 너희로 하여금 이치에 합당하게 하여 흐트러짐이 없이 주를 섬기게 하려 함이라</p>
+                <p><span class="verse-number">36</span>그러므로 만일 누가 자기의 약혼녀에 대한 행동이 합당하지 못한 줄로 생각할 때에 그 약혼녀의 혼기도 지나고 그같이 할 필요가 있거든 원하는 대로 하라 그것은 죄 짓는 것이 아니니 그들로 결혼하게 하라</p>
+                <p><span class="verse-number">37</span>그러나 그가 마음을 정하고 또 부득이한 일도 없고 자기 뜻대로 할 권리가 있어서 그 약혼녀를 그대로 두기로 하여도 잘하는 것이니라</p>
+                <p><span class="verse-number">38</span>그러므로 결혼하는 자도 잘하거니와 결혼하지 아니하는 자는 더 잘하는 것이니라</p>
+                <p><span class="verse-number">39</span>아내는 그 남편이 살아 있는 동안에 매여 있다가 남편이 죽으면 자유로워 자기 뜻을 따라 시집 갈 것이나 주 안에서만 할 것이니라</p>
+                <p><span class="verse-number">40</span>그러나 내 뜻에는 그냥 지내는 것이 더욱 복이 있으리로다 나도 또한 하나님의 영을 받은 줄로 생각하노라</p>
+            </div>
+        </div>
+
+        <!-- 에스겔 5장 -->
+        <div class="chapter-card card-book3">
+            <h2>에스겔 5장</h2>
+            <h3>개요 (Overview)</h3>
+            <p>에스겔은 자신의 머리카락과 수염을 깎아 세 부분으로 나누어 태우고, 치고, 흩어버리는 상징적인 행동을 통해 예루살렘에 임할 하나님의 무서운 심판을 예언합니다. 이 심판은 예루살렘의 극심한 우상숭배와 언약 파기에 대한 결과이며, 기근, 칼, 흩어짐이라는 끔찍한 재앙을 포함합니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <svg class="analysis-svg" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="10" width="380" height="200" fill="#FFF8E1" rx="10"/>
+                <text x="200" y="35" font-family="Noto Serif KR" font-size="16" text-anchor="middle" font-weight="bold" fill="#F57F17">예루살렘에 대한 심판의 상징</text>
+
+                <!-- 머리카락과 수염 -->
+                <circle cx="70" cy="100" r="40" fill="#FFECB3"/>
+                <text x="70" y="105" font-family="Noto Sans KR" font-size="12" text-anchor="middle" font-weight="bold" fill="#E65100">머리카락/수염</text>
+                <text x="70" y="120" font-family="Noto Sans KR" font-size="10" text-anchor="middle" fill="#E65100">(이스라엘 백성)</text>
+
+                <!-- 심판의 세 가지 방식 -->
+                <path d="M 115 100 L 155 60" stroke="#F57F17" stroke-width="1.5" fill="none"/>
+                <text x="180" y="60" font-family="Noto Sans KR" font-size="12" text-anchor="middle">1/3 불사름 (성읍 안 기근/전염병)</text>
+                <path d="M 115 100 L 155 100" stroke="#F57F17" stroke-width="1.5" fill="none"/>
+                <text x="180" y="105" font-family="Noto Sans KR" font-size="12" text-anchor="middle">1/3 칼로 침 (성읍 밖 살육)</text>
+                <path d="M 115 100 L 155 140" stroke="#F57F17" stroke-width="1.5" fill="none"/>
+                <text x="180" y="145" font-family="Noto Sans KR" font-size="12" text-anchor="middle">1/3 바람에 흩음 (포로/도망)</text>
+
+                <!-- 남은 자 -->
+                <rect x="20" y="170" width="360" height="30" fill="#FFFDE7" rx="5"/>
+                <text x="200" y="190" font-family="Noto Sans KR" font-size="12" text-anchor="middle" fill="#333">소수의 남은 자 (옷자락에 쌈) → 그들 중 일부도 불에 던져짐 (정화)</text>
+            </svg>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>선지자의 상징적 행위는 단순히 미래를 보여주는 것을 넘어, 그 예언이 반드시 성취될 것임을 보여주는 강력한 메시지입니다. 머리카락을 깎는 행위는 나실인 서약의 파기나 극심한 수치를 상징하며, 이스라엘이 하나님과의 언약 관계를 파기하고 수치스러운 존재가 되었음을 보여줍니다. 개혁신학은 이 본문을 통해 하나님의 공의와 거룩하심을 강조합니다. 하나님은 죄를 결코 용납하지 않으시며, 언약을 파기한 백성을 반드시 심판하십니다. 그러나 소수의 머리카락을 옷자락에 싸매는 행위는 심판 중에도 '남은 자(remnant)'를 보존하시는 하나님의 신실한 은혜를 암시합니다. 이 남은 자 사상은 이스라엘의 회복과 메시아의 오심으로 이어지는 중요한 신학적 개념입니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <div class="commentary-box">
+                <p class="key-verse"><strong>에스겔 5:5-6</strong> "주 여호와께서 이와 같이 이르시되 이것이 곧 예루살렘이라 내가 그를 이방인 가운데에 두어 나라들이 둘러 있게 하였거늘 그가 내 규례를 거슬러서 이방인보다 더 악을 행하며 내 율례도 그리함이 그를 둘러 있는 나라들보다 더하니 이는 그들이 내 규례를 버리고 내 율례를 행하지 아니하였음이니라"</p>
+                <p>이 구절은 심판의 원인을 명확히 밝힙니다. 예루살렘은 열방 가운데 하나님의 영광을 드러내는 제사장 나라로 부름받았지만, 오히려 이방보다 더 악을 행했습니다. 특별한 선택과 언약은 더 큰 책임으로 이어집니다. 빛의 자녀로 부름받았으나 어둠을 행했기에 그 심판은 더욱 준엄합니다. 이는 하나님의 은혜를 가볍게 여기고 세상과 타협하는 모든 시대의 교회와 성도를 향한 경고의 메시지입니다. 하나님의 백성은 세상의 기준이 아니라 하나님의 거룩한 율례를 따라 살아야 할 책임이 있습니다.</p>
+            </div>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <strong>심판의 상징적 행위</strong>
+                <p><span class="verse-number">1</span>인자야 너는 날카로운 칼을 가져다가 삭도를 삼아 네 머리털과 수염을 깎아서 저울로 달아 나누어 두라</p>
+                <p><span class="verse-number">2</span>그 성읍을 에워싸는 날이 차거든 너는 털 삼분의 일은 성읍 안에서 불사르고 삼분의 일은 성읍 사방에서 칼로 치고 또 삼분의 일은 바람에 흩으라 내가 그 뒤를 따라 칼을 빼리라</p>
+                <p><span class="verse-number">3</span>너는 터럭 중에서 조금을 네 옷자락에 싸고</p>
+                <p><span class="verse-number">4</span>또 그 가운데에서 얼마를 불에 던져 사르라 그 속에서 불이 이스라엘 온 족속에게로 나오리라</p>
+                
+                <strong>예루살렘의 죄악과 심판 선포</strong>
+                <p><span class="verse-number">5</span>주 여호와께서 이와 같이 이르시되 이것이 곧 예루살렘이라 내가 그를 이방인 가운데에 두어 나라들이 둘러 있게 하였거늘</p>
+                <p><span class="verse-number">6</span>그가 내 규례를 거슬러서 이방인보다 더 악을 행하며 내 율례도 그리함이 그를 둘러 있는 나라들보다 더하니 이는 그들이 내 규례를 버리고 내 율례를 행하지 아니하였음이니라</p>
+                <p><span class="verse-number">7</span>그러므로 나 주 여호와가 말하노라 너희의 요란함이 너희를 둘러싸고 있는 이방인들보다 더하여 내 율례를 행하지 아니하며 내 규례를 지키지 아니하고 너희를 둘러 있는 이방인들의 규례대로도 행하지 아니하였은즉</p>
+                <p><span class="verse-number">8</span>나 주 여호와가 말하노라 나 곧 내가 너를 치며 이방인의 목전에서 너에게 벌을 내리되</p>
+                <p><span class="verse-number">9</span>네 모든 가증한 일로 말미암아 내가 전무후무하게 네게 내릴지라</p>
+                <p><span class="verse-number">10</span>그리한즉 네 가운데에서 아버지가 아들을 잡아먹고 아들이 그 아버지를 잡아먹으리라 내가 벌을 네게 내리고 너희 중에 남은 자를 다 사방에 흩으리라</p>
+                
+                <strong>심판의 가혹함</strong>
+                <p><span class="verse-number">11</span>그러므로 나 주 여호와가 말하노라 내가 나의 삶을 두고 맹세하노니 네가 모든 미운 물건과 모든 가증한 일로 내 성소를 더럽혔은즉 나도 너를 아끼지 아니하며 긍휼을 베풀지 아니하고 미약하게 하리니</p>
+                <p><span class="verse-number">12</span>너희 가운데에서 삼분의 일은 전염병으로 죽으며 기근으로 멸망할 것이요 삼분의 일은 너희 사방에서 칼에 엎드러질 것이며 삼분의 일은 내가 사방에 흩어 버리고 또 그 뒤를 따라 칼을 빼리라</p>
+                <p><span class="verse-number">13</span>이와 같이 내 노가 다한즉 그들을 향한 내 분이 풀려서 내 마음이 시원하리라 내 분이 그들에게 다한즉 나 여호와가 열심으로 말한 줄을 그들이 알리라</p>
+                <p><span class="verse-number">14</span>내가 또 너를 황무하게 하고 너를 둘러싸고 있는 이방인들 중에서 모든 지나가는 자의 목전에 모욕 거리가 되게 하리니</p>
+                <p><span class="verse-number">15</span>내 분과 내 진노와 및 내 중한 책망로 네게 벌을 내린즉 너를 둘러싸고 있는 이방인들에게 네가 모욕과 조롱을 당하고 경고와 놀람이 되리라 나 여호와의 말이니라</p>
+                <p><span class="verse-number">16</span>내가 멸망하게 하는 기근의 독한 화살을 너희에게 보내되 기근을 더하여 너희가 의뢰하는 양식을 끊을 것이라</p>
+                <p><span class="verse-number">17</span>내가 기근과 사나운 짐승을 너희에게 보내 외롭게 하고 너희 가운데에 전염병과 살육이 일어나게 하고 또 칼이 너희에게 임하게 하리라 나 여호와의 말이니라</p>
+            </div>
+        </div>
+
+        <!-- 시편 42, 43편 -->
+        <div class="chapter-card card-book4">
+            <h2>시편 42, 43편</h2>
+            <h3>개요 (Overview)</h3>
+            <p>시편 42편과 43편은 원래 하나의 시로, 성전에서 멀리 떨어져 고난과 대적들의 조롱 속에 있는 시인이 하나님을 향한 깊은 갈망과 소망을 노래합니다. 그는 낙심하는 자신의 영혼을 향해 하나님을 바라보라고 격려하며, 결국 하나님의 빛과 진리가 자신을 인도하여 다시 주님을 찬양하게 될 것을 확신합니다.</p>
+
+            <h3>시각적 분석 (Visual Analysis)</h3>
+            <svg class="analysis-svg" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="10" width="380" height="200" fill="#E8F5E9" rx="10"/>
+                <text x="200" y="35" font-family="Noto Serif KR" font-size="16" text-anchor="middle" font-weight="bold" fill="#1B5E20">영혼의 갈망과 소망의 노래</text>
+
+                <!-- 현재 상태 -->
+                <g>
+                    <path d="M 50 80 C 80 50, 120 50, 150 80 S 220 110, 250 80" stroke="#A5D6A7" stroke-width="3" fill="none"/>
+                    <text x="150" y="70" font-family="Noto Sans KR" font-size="14" text-anchor="middle" font-weight="bold" fill="#2E7D32">현재의 고통</text>
+                    <text x="70" y="100" font-family="Noto Sans KR" font-size="12" text-anchor="middle">하나님 부재의 아픔</text>
+                    <text x="210" y="100" font-family="Noto Sans KR" font-size="12" text-anchor="middle">대적의 조롱</text>
+                </g>
+
+                <!-- 후렴구 (소망) -->
+                <rect x="30" y="130" width="340" height="50" fill="#C8E6C9" rx="5"/>
+                <text x="200" y="150" font-family="Noto Sans KR" font-size="14" text-anchor="middle" font-weight="bold" fill="#1B5E20">후렴: "내 영혼아 네가 어찌하여 낙심하며..."</text>
+                <text x="200" y="170" font-family="Noto Sans KR" font-size="12" text-anchor="middle">자기 독려와 하나님께 대한 소망</text>
+
+                <!-- 화살표 -->
+                <path d="M 150 110 L 150 130" stroke="#333" stroke-width="2" fill="none"/>
+                <path d="M 145 125 L 150 130 L 155 125" stroke="#333" stroke-width="2" fill="none"/>
+                <text x="130" y="122" font-family="Noto Sans KR" font-size="10" text-anchor="middle">극복</text>
+            </svg>
+
+            <h3>배경지식 및 신학적 통찰 (Context & Theology)</h3>
+            <p>고라 자손의 시로 알려진 이 시편은, 성전 예배에 참여할 수 없는 극심한 고통 속에서 쓰였습니다. '사슴이 시냇물을 찾기에 갈급함 같이'라는 표현은 하나님과의 교제에 대한 인간 영혼의 본질적인 갈망을 아름답게 묘사합니다. 개혁신학에서 이 시는 '이미'와 '아직' 사이의 긴장 속에 살아가는 성도의 모습을 잘 보여줍니다. 우리는 이미 구원받았으나, 아직 죄와 고통이 가득한 세상 속에서 순례자로 살아갑니다. 시인처럼 우리도 때로 낙심하고 하나님의 부재를 느끼는 듯한 '영혼의 어두운 밤'을 경험할 수 있습니다. 그러나 이 시는 감정적 침체에 머무르지 않고, 이성과 의지를 동원하여 자신의 영혼에게 '하나님께 소망을 두라'고 명령합니다. 이는 감정에 지배받는 신앙이 아닌, 하나님의 약속에 근거한 신앙의 중요성을 가르칩니다.</p>
+
+            <h3>주요 구절 해설 (Key Verse Commentary)</h3>
+            <div class="commentary-box">
+                <p class="key-verse"><strong>시편 42:5, 11; 43:5</strong> "내 영혼아 네가 어찌하여 낙심하며 어찌하여 내 속에서 불안해 하는가 너는 하나님께 소망을 두라 그가 나타나 도우심으로 말미암아 내가 여전히 찬송하리로다"</p>
+                <p>이 세 번 반복되는 후렴구는 시 전체의 구조적, 신학적 핵심입니다. 시인은 자신의 내면을 객관화하여 대화합니다. 그는 낙심과 불안이라는 감정의 실체를 인정하면서도, 거기에 매몰되기를 거부합니다. 대신 '너는 하나님께 소망을 두라'고 의지적으로 선포합니다. 이 소망은 막연한 기대가 아니라, '그가 나타나 도우심' 즉, 하나님의 구체적인 개입과 구원의 약속에 근거합니다. 현재의 고통에도 불구하고 '내가 여전히 찬송하리로다'라는 미래 시제의 고백은, 믿음이란 현재의 상황을 넘어 하나님의 신실하심을 바라보는 것임을 보여줍니다. 이는 고난 중에 있는 성도들에게 큰 위로와 도전이 됩니다.</p>
+            </div>
+
+            <h3>성경 본문 (Full Text)</h3>
+            <div class="bible-text">
+                <p><strong>시편 42편</strong></p>
+                <strong>하나님을 향한 갈망</strong>
+                <p><span class="verse-number">1</span>하나님이여 사슴이 시냇물을 찾기에 갈급함 같이 내 영혼이 주를 찾기에 갈급하니이다</p>
+                <p><span class="verse-number">2</span>내 영혼이 하나님 곧 살아 계시는 하나님을 갈망하나니 내가 어느 때에 나아가서 하나님의 얼굴을 뵈올까</p>
+                <p><span class="verse-number">3</span>사람들이 종일 내게 하는 말이 네 하나님이 어디 있느뇨 하오니 내 눈물이 주야로 내 음식이 되었도다</p>
+                <p><span class="verse-number">4</span>내가 전에 성일을 지키는 무리와 동행하여 기쁨과 감사의 소리를 내며 그들을 하나님의 집으로 인도하였더니 이제 이 일을 기억하고 내 마음이 상하는도다</p>
+                
+                <strong>낙심 속의 소망</strong>
+                <p><span class="verse-number">5</span>내 영혼아 네가 어찌하여 낙심하며 어찌하여 내 속에서 불안해 하는가 너는 하나님께 소망을 두라 그가 나타나 도우심으로 말미암아 내가 여전히 찬송하리로다</p>
+                <p><span class="verse-number">6</span>내 하나님이여 내 영혼이 내 속에서 낙심이 되므로 내가 요단 땅과 헤르몬과 미살 산에서 주를 기억하나이다</p>
+                <p><span class="verse-number">7</span>주의 폭포 소리에 깊은 바다가 서로 부르며 주의 모든 파도와 물결이 나를 휩쓸었나이다</p>
+                <p><span class="verse-number">8</span>낮에는 여호와께서 그의 인자하심을 베푸시고 밤에는 그의 찬송이 내게 있어 생명의 하나님께 기도하리로다</p>
+                <p><span class="verse-number">9</span>내 반석이신 하나님께 말하기를 어찌하여 나를 잊으셨나이까 내가 어찌하여 원수의 압제로 말미암아 슬프게 다니나이까 하리로다</p>
+                <p><span class="verse-number">10</span>내 뼈를 찌르는 칼 같이 내 대적이 나를 비방하여 늘 내게 말하기를 네 하나님이 어디 있느냐 하도다</p>
+                <p><span class="verse-number">11</span>내 영혼아 네가 어찌하여 낙심하며 어찌하여 내 속에서 불안해 하는가 너는 하나님께 소망을 두라 나는 그가 나타나 도우심으로 말미암아 내 하나님을 여전히 찬송하리로다</p>
+                
+                <p><strong>시편 43편</strong></p>
+                <strong>하나님의 판단과 구원을 구하는 기도</strong>
+                <p><span class="verse-number">1</span>하나님이여 나를 판단하시되 경건하지 아니한 나라에 대하여 내 송사를 변호하시며 간사하고 불의한 자에게서 나를 건지소서</p>
+                <p><span class="verse-number">2</span>주는 나의 힘이 되신 하나님이시거늘 어찌하여 나를 버리셨나이까 내가 어찌하여 원수의 억압으로 말미암아 슬프게 다니나이까</p>
+                <p><span class="verse-number">3</span>주의 빛과 주의 진리를 보내시어 나를 인도하시고 주의 거룩한 산과 주께서 계시는 곳에 이르게 하소서</p>
+                <p><span class="verse-number">4</span>그런즉 내가 하나님의 제단에 나아가 나의 큰 기쁨의 하나님께 이르리이다 하나님이여 나의 하나님이여 내가 수금으로 주를 찬양하리이다</p>
+                <p><span class="verse-number">5</span>내 영혼아 네가 어찌하여 낙심하며 어찌하여 내 속에서 불안해 하는가 너는 하나님께 소망을 두라 나는 그가 나타나 도우심으로 말미암아 내 하나님을 여전히 찬송하리로다</p>
+            </div>
+        </div>
+
+        <!-- 통합적 이해 -->
+        <div class="chapter-card integration-card">
+            <h2>통합적 이해</h2>
+            
+            <h3>관통하는 주제 (Overarching Theme)</h3>
+            <p>오늘의 본문들은 **하나님의 주권적 심판과 그 속에서 신실한 자를 향한 구원의 소망**이라는 주제로 연결됩니다. 사무엘상에서 다윗은 심판의 주권을 하나님께 맡기고 인내하며, 에스겔서는 언약을 파기한 백성에 대한 하나님의 공의로운 심판을 생생하게 보여줍니다. 동시에 시편은 그 심판과 같은 고난 속에서 낙심하는 영혼이 어떻게 하나님께 소망을 둠으로써 다시 찬양을 회복하는지를 노래합니다. 고린도전서는 이러한 종말론적 심판과 구원의 긴장 속에서 성도가 현재의 삶을 어떤 태도로 살아야 하는지, 즉 부르심의 자리에서 주를 섬겨야 함을 교훈합니다.</p>
+
+            <h3>구속사의 파노라마 (Panorama of Redemptive History)</h3>
+            <svg class="analysis-svg" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#B3E5FC;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#FFCDD2;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <rect x="10" y="50" width="380" height="20" fill="url(#grad1)" />
+                <text x="200" y="30" font-family="Noto Serif KR" font-size="16" text-anchor="middle" font-weight="bold">구속사의 흐름: 심판과 은혜</text>
+                
+                <text x="40" y="65" font-size="10">창조/언약</text>
+                <text x="360" y="65" font-size="10">새 창조</text>
+
+                <!-- 삼상26 -->
+                <g transform="translate(80, 90)">
+                    <circle cx="0" cy="0" r="15" fill="#4285F4"/>
+                    <text x="0" y="5" font-size="12" fill="white" text-anchor="middle">삼상</text>
+                    <text x="0" y="30" font-size="10" text-anchor="middle">그리스도의 예표</text>
+                    <text x="0" y="45" font-size="10" text-anchor="middle">(의로운 고난)</text>
+                </g>
+
+                <!-- 겔5 -->
+                <g transform="translate(160, 90)">
+                    <circle cx="0" cy="0" r="15" fill="#F4B400"/>
+                    <text x="0" y="5" font-size="12" fill="white" text-anchor="middle" stroke="black" stroke-width="0.3px">겔</text>
+                    <text x="0" y="30" font-size="10" text-anchor="middle">언약 백성 심판</text>
+                    <text x="0" y="45" font-size="10" text-anchor="middle">(남은 자 사상)</text>
+                </g>
+
+                <!-- 시42,43 -->
+                <g transform="translate(240, 90)">
+                    <circle cx="0" cy="0" r="15" fill="#0F9D58"/>
+                    <text x="0" y="5" font-size="12" fill="white" text-anchor="middle">시</text>
+                    <text x="0" y="30" font-size="10" text-anchor="middle">성도의 순례길</text>
+                    <text x="0" y="45" font-size="10" text-anchor="middle">(고난과 소망)</text>
+                </g>
+
+                <!-- 고전7 -->
+                <g transform="translate(320, 90)">
+                    <circle cx="0" cy="0" r="15" fill="#DB4437"/>
+                    <text x="0" y="5" font-size="12" fill="white" text-anchor="middle">고전</text>
+                    <text x="0" y="30" font-size="10" text-anchor="middle">종말론적 삶</text>
+                    <text x="0" y="45" font-size="10" text-anchor="middle">(교회의 사명)</text>
+                </g>
+                
+                <path d="M 10 160 C 100 140, 300 140, 390 160" stroke="#808080" stroke-width="2" fill="none"/>
+                <path d="M 200 148 L 200 120" stroke="#808080" stroke-width="2" fill="none"/>
+                <text x="200" y="175" font-family="Noto Sans KR" font-size="12" text-anchor="middle">모든 역사를 주관하시는 하나님의 주권 아래</text>
+                <text x="200" y="195" font-family="Noto Sans KR" font-size="12" text-anchor="middle">심판과 구원을 이루시는 그리스도 중심의 역사</text>
+            </svg>
+
+            <h3>본문별 연결고리 및 구속사적 맥락 (Redemptive-Historical Context)</h3>
+            <p>다윗이 사울의 심판을 하나님께 맡기는 모습(삼상 26)은, 모든 심판을 아버지께 맡기고 십자가를 지신 그리스도를 예표합니다. 에스겔이 예언한 예루살렘의 심판(겔 5)은 이스라엘의 언약 실패를 보여주며, 왜 새로운 언약과 참된 왕이신 그리스도가 필요한지를 역설합니다. 시편 기자의 탄식과 소망(시 42-43)은 죄와 사망의 권세 아래 신음하며 구원자를 갈망하는 모든 성도의 노래이며, 이는 그리스도 안에서 궁극적인 응답을 얻습니다. 바울의 교훈(고전 7)은 그리스도의 초림과 재림 사이, 즉 '이미'와 '아직'의 시대에 교회가 어떤 자세로 살아가야 하는지를 보여줍니다. 우리는 세상의 외형이 지나감을 알기에, 현재의 상황에 얽매이지 않고 부르심의 자리에서 하나님 나라를 위해 살아갑니다.</p>
+
+            <h3>주제별 심층 분석표 (Thematic Analysis Table)</h3>
+            <table class="analysis-table">
+                <thead>
+                    <tr>
+                        <th>주제</th>
+                        <th>사무엘상 26</th>
+                        <th>고린도전서 7</th>
+                        <th>에스겔 5</th>
+                        <th>시편 42, 43</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>하나님의 주권</strong></td>
+                        <td>심판의 주권을 하나님께 맡김</td>
+                        <td>각 사람의 삶의 정황을 주관하심</td>
+                        <td>역사와 심판의 절대적 주관자</td>
+                        <td>궁극적 구원과 회복의 주체</td>
+                    </tr>
+                    <tr>
+                        <td><strong>인간의 상태</strong></td>
+                        <td>신실한 자(다윗)와 불순종하는 자(사울)의 대조</td>
+                        <td>각자의 은사와 부르심 안에서 살아감</td>
+                        <td>언약을 파기하고 이방보다 더 악함</td>
+                        <td>고난으로 인해 낙심하고 불안해함</td>
+                    </tr>
+                    <tr>
+                        <td><strong>심판/고난</strong></td>
+                        <td>사울 왕의 추격과 위협</td>
+                        <td>임박한 환난과 종말론적 긴장</td>
+                        <td>기근, 칼, 흩어짐의 무서운 심판</td>
+                        <td>하나님의 부재처럼 느껴지는 고통</td>
+                    </tr>
+                    <tr>
+                        <td><strong>구원/소망</strong></td>
+                        <td>하나님께서 모든 환난에서 구원하실 것을 믿음</td>
+                        <td>주 안에서 자유인 된 신분으로 살아감</td>
+                        <td>'남은 자'를 통해 드러나는 은혜</td>
+                        <td>하나님께 소망을 두고 다시 찬송할 것을 확신함</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>오늘의 교훈 (Application)</h3>
+            <p>우리는 삶의 여러 문제 앞에서 때로 낙심하고 불안해하며, 하나님의 뜻이 어디 있는지 알기 어려울 때가 있습니다. 오늘 본문들은 이러한 우리에게 중요한 지침을 줍니다. 첫째, 다윗처럼 억울한 상황 속에서도 복수나 판단을 내 손으로 하려 하지 말고, 모든 것을 아시는 하나님께 맡겨야 합니다. 둘째, 에스겔의 경고를 통해, 우리가 받은 은혜를 가볍게 여기고 세상과 타협하며 살 때 하나님의 공의로운 징계가 있음을 기억해야 합니다. 셋째, 시편 기자처럼 우리의 감정이 무너져 내릴 때, 감정에 함몰되지 말고 의지적으로 '내 영혼아, 하나님께 소망을 두라'고 선포해야 합니다. 마지막으로, 고린도전서의 가르침처럼 결혼, 직장, 관계 등 우리가 처한 모든 상황은 하나님을 섬기기 위한 '부르심의 자리'임을 깨닫고, 그곳에서 하나님과 동행하며 주를 기쁘시게 하는 삶을 살아야 합니다. 세상의 외형은 지나가지만, 주를 위해 살아간 우리의 삶은 영원할 것입니다.</p>
+        </div>
+
+        <footer>
+            © 2025 KBD 맥체인 성경읽기 프로젝트
+        </footer>
+    </div>
+
+    <div class="floating-controls">
+        <audio id="audioPlayer" src="https://sen0991-my.sharepoint.com/:u:/g/personal/mathtox_munhyeon_hs_kr/ESyTYg2BjAJFp6_QdrMySFYBgC-PXymKkbA9OLYIEKGNUw?download=1"></audio>
+        <button id="playPauseBtn">▶</button>
+    </div>
+
+    <script>
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+
+        let isPlaying = false;
+
+        // 오디오 재생/일시정지 함수 (안정성 강화)
+        async function togglePlay() {
+            if (isPlaying) {
+                audioPlayer.pause();
+                playPauseBtn.textContent = '▶';
+                isPlaying = false;
+            } else {
+                try {
+                    await audioPlayer.play();
+                    playPauseBtn.textContent = '❚❚';
+                    isPlaying = true;
+                } catch (error) {
+                    console.error("오디오 재생에 실패했습니다:", error);
+                    // 사용자에게 재생 실패를 알리는 UI를 추가할 수도 있습니다.
+                    isPlaying = false; // 상태를 정확하게 Maintanance
+                }
+            }
+        }
+
+        playPauseBtn.addEventListener('click', togglePlay);
+
+        // 스페이스바를 통한 재생/일시정지 제어
+        document.addEventListener('keydown', (event) => {
+            if (event.code === 'Space') {
+                event.preventDefault(); // 스페이스바의 기본 동작(페이지 스크롤) 방지
+                togglePlay();
+            }
+        });
+        
+        // 오디오 재생이 끝나면 버튼 상태를 초기화
+        audioPlayer.onended = () => {
+            playPauseBtn.textContent = '▶';
+            isPlaying = false;
+        };
+    </script>
+
+</body>
+</html>
